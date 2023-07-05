@@ -33,19 +33,12 @@ function festivalsPage(props: Data) {
     console.log(props);
     return props.festivals.map((festival) => ( 
       festival.bands.map((band, index) => {
-        console.log(band.recordLabel)
-        console.log(labelsArray[index] )
         if(band.recordLabel === labelsArray[index]){
-          console.log(index)
           festivalsArray.push({name: band.recordLabel, festivals: festival.name}) 
-          
         }
       })
     ))
 }
-
-console.log(festivalsArray);
-console.log(bandsArray);
 
 export async function getStaticProps() {
   const res = await
@@ -55,8 +48,7 @@ export async function getStaticProps() {
         props: {
             festivals: data,
         },
-    };
-  
+    }; 
 }
 
 export default festivalsPage;
