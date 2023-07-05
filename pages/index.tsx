@@ -1,7 +1,3 @@
-// import useSWR from 'swr'
-import { useEffect } from "react";
-import { buildFestivalPath, extractFestivals } from "./api/festivals";
-
 type Data = [
   {
     "name": "string",
@@ -13,9 +9,43 @@ type Data = [
     ]
   }
 ]
+
+type PayloadData = [
+  {
+    "name": "string",
+    "bands": [
+      {
+        "name": "string",
+        "festival": [
+          {
+            "name": "string"
+          }
+        ]
+      }
+    ]
+  }
+]
+let labelsArray: String[] = ["Winter Primates", "XS Recordings", "Pacific Records", "Outerscope", "Fourth Woman Records", "Outerscope", "Fourth Woman Records"]
+let festivalsArray:Array<PayloadData> = []
+let bandsArray:Array<PayloadData> = []
+
 function festivalsPage(props: Data) {
     console.log(props);
+    return props.festivals.map((festival) => ( 
+      festival.bands.map((band, index) => {
+        console.log(band.recordLabel)
+        console.log(labelsArray[index] )
+        if(band.recordLabel === labelsArray[index]){
+          console.log(index)
+          festivalsArray.push({name: band.recordLabel, festivals: festival.name}) 
+          
+        }
+      })
+    ))
 }
+
+console.log(festivalsArray);
+console.log(bandsArray);
 
 export async function getStaticProps() {
   const res = await
@@ -25,7 +55,6 @@ export async function getStaticProps() {
         props: {
             festivals: data,
         },
-        revalidate: 3,
     };
   
 }
