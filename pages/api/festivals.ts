@@ -26,7 +26,7 @@ export function extractFestivals(filePath: any) {
 function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     if(req.method === 'GET') {
         const filePath = buildFestivalPath();
-        const data = extractFestivals(filePath);
+        const data: Data = extractFestivals(filePath);
         res.status(200).json({ festivals: data })
     }
 }
